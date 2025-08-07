@@ -8,6 +8,7 @@ import { user_service } from "@/context/AppContext";
 import { useAppData } from "@/context/AppContext";
 import { redirect } from "next/navigation";
 import Loading from "@/components/Loading";
+import toast from "react-hot-toast";
 
 const Loginpage = () => {
   const [email, setEmail] = React.useState<string>("");
@@ -27,10 +28,10 @@ const Loginpage = () => {
         email,
       });
 
-      alert(data.message);
+      toast.success(data.message);
       router.push(`/verify?email=${email}`);
     } catch (error: any) {
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
     } finally {
       setLoading(false);
     }

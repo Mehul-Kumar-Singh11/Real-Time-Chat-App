@@ -10,6 +10,7 @@ import { user_service } from "@/context/AppContext";
 import { useAppData } from "@/context/AppContext";
 import { redirect } from "next/navigation";
 import Loading from "@/components/Loading";
+import toast from "react-hot-toast";
 
 const VerifyOTP = () => {
   const { isAuth, setIsAuth, setUser, loading: userLoading } = useAppData();
@@ -85,7 +86,7 @@ const VerifyOTP = () => {
         email,
         otp: otpString,
       });
-      alert(data.message);
+      toast.success(data.message);
       Cookies.set("token", data.token, {
         expires: 15,
         secure: false, // hosting in AWS will require this to be false
@@ -109,7 +110,7 @@ const VerifyOTP = () => {
       const { data } = await axios.post(`${user_service}/api/v1/login`, {
         email,
       });
-      alert(data.message);
+      toast.success(data.message);
       setTimer(60);
     } catch (error: any) {
       setError(error.response.data.message);
