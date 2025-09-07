@@ -8,6 +8,9 @@ const VerifyPage = () => {
     <Suspense fallback={<Loading />}>
       <VerifyOTP />
     </Suspense>
+    <Suspense fallback={<Loading />}>
+      <VerifyOTP />
+    </Suspense>
   );
 };
 

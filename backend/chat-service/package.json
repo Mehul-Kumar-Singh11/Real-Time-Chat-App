@@ -32,6 +32,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/multer": "^2.0.0",
     "concurrently": "^9.2.0",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "typescript": "^5.9.2"
   }
 }
