@@ -4,11 +4,18 @@ import { ArrowRight, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
+import { user_service } from "@/context/AppContext";
+import { useAppData } from "@/context/AppContext";
+import { redirect } from "next/navigation";
+import Loading from "../../components/Loading";
+import toast from "react-hot-toast";
 
 const Loginpage = () => {
   const [email, setEmail] = React.useState<string>("");
   const [loading, setLoading] = React.useState<boolean>(false);
   const router = useRouter();
+
+  const { isAuth, loading: userLoading } = useAppData();
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLElement>
@@ -17,22 +24,26 @@ const Loginpage = () => {
     setLoading(true);
 
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/v1/login`, {
+      const { data } = await axios.post(`${user_service}/api/v1/login`, {
         email,
       });
 
-      alert(data.message);
+      toast.success(data.message);
       router.push(`/verify?email=${email}`);
     } catch (error: any) {
-      alert(error.response);
+      toast.error(error.response.data.message);
     } finally {
       setLoading(false);
     }
-    setTimeout(() => {
-      setLoading(false);
-      router.push("/verify");
-    }, 2000);
   };
+
+  if (userLoading) {
+    return <Loading />;
+  }
+
+  if (isAuth) {
+    return redirect("/chat");
+  }
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
