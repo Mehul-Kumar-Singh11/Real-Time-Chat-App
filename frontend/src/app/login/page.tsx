@@ -7,7 +7,7 @@ import { Loader2 } from "lucide-react";
 import { user_service } from "@/context/AppContext";
 import { useAppData } from "@/context/AppContext";
 import { redirect } from "next/navigation";
-import Loading from "../../components/Loading";
+import Loading from "@/components/Loading";
 import toast from "react-hot-toast";
 
 const Loginpage = () => {
