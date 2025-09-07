@@ -4,7 +4,7 @@ export const user_service = "http://localhost:5000";
 export const chat_service = "http://localhost:5002";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { Toaster, toast } from "react-hot-toast";
+import toast, { Toaster } from 'react-hot-toast';
 
 export interface User {
   _id: string;
@@ -36,9 +36,9 @@ interface AppContextType {
   isAuth: boolean;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
-  logoutUser: ()=> Promise<void>;
-  fetchUsers: ()=> Promise<void>;
-  fetchChats: ()=> Promise<void>;
+  logoutUser: () => Promise<void>;
+  fetchUsers: () => Promise<void>;
+  fetchChats: () => Promise<void>;
   chats: Chats[] | null;
   users: User[] | null;
   setChats: React.Dispatch<React.SetStateAction<Chats[] | null>>;
@@ -75,8 +75,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
   async function logoutUser() {
     Cookies.remove("token");
-    setUser(null);
-    setIsAuth(false);
+    setUser(null)
+    setIsAuth(false)
     toast.success("User Logged Out");
   }
 
@@ -86,12 +86,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     try {
       const { data } = await axios.get(`${chat_service}/api/v1/chat/all`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         }
-      });
-
+      })
       setChats(data.chats);
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error);
     }
   }
@@ -100,14 +100,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
   async function fetchUsers() {
     const token = Cookies.get("token");
-
-    try{      
+    try{
       const { data } = await axios.get(`${user_service}/api/v1/users/all`, {
         headers: {
           Authorization: `Bearer ${token}`,
         }
       });
-      
       setUsers(data);
     } catch(error) {
       console.log(error);
