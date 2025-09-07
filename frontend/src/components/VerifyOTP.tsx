@@ -9,11 +9,11 @@ import { ChevronLeft } from "lucide-react";
 import { user_service } from "@/context/AppContext";
 import { useAppData } from "@/context/AppContext";
 import { redirect } from "next/navigation";
-import Loading from "./Loading";
+import Loading from "@/components/Loading";
 import toast from "react-hot-toast";
 
 const VerifyOTP = () => {
-  const { isAuth, setIsAuth, setUser, loading: userLoading, fetchChats, fetchUsers } = useAppData();
+  const { isAuth, setIsAuth, setUser, loading: userLoading } = useAppData();
   const [loading, setLoading] = useState<boolean>(false);
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const [error, setError] = useState<string>("");
@@ -80,6 +80,7 @@ const VerifyOTP = () => {
     }
     setError("");
     setLoading(true);
+
     try {
       const { data } = await axios.post(`${user_service}/api/v1/verify`, {
         email,
@@ -95,8 +96,6 @@ const VerifyOTP = () => {
       inputRefs.current[0]?.focus();
       setUser(data.user);
       setIsAuth(true);
-      fetchChats();
-      fetchUsers();
     } catch (error: any) {
       setError(error.response.data.message);
     } finally {
