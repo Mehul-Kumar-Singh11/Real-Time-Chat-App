@@ -1,7 +1,6 @@
-import React from "react";
+import Loading from "@/components/Loading";
 import VerifyOTP from "@/components/VerifyOTP";
 import { Suspense } from "react";
-import Loading from "@/components/Loading";
 
 const VerifyPage = () => {
   return (
