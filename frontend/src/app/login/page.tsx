@@ -1,18 +1,15 @@
 "use client";
-import React from "react";
-import { ArrowRight, Mail } from "lucide-react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
-import { Loader2 } from "lucide-react";
-import { user_service } from "@/context/AppContext";
-import { useAppData } from "@/context/AppContext";
-import { redirect } from "next/navigation";
 import Loading from "@/components/Loading";
+import { useAppData, user_service } from "@/context/AppContext";
+import axios from "axios";
+import { ArrowRight, Loader2, Mail } from "lucide-react";
+import { redirect, useRouter } from "next/navigation";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-const Loginpage = () => {
-  const [email, setEmail] = React.useState<string>("");
-  const [loading, setLoading] = React.useState<boolean>(false);
+const LoginPage = () => {
+  const [email, setEmail] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const { isAuth, loading: userLoading } = useAppData();
@@ -37,14 +34,8 @@ const Loginpage = () => {
     }
   };
 
-  if (userLoading) {
-    return <Loading />;
-  }
-
-  if (isAuth) {
-    return redirect("/chat");
-  }
-
+  if (userLoading) return <Loading />;
+  if (isAuth) return redirect("/chat");
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
@@ -73,7 +64,7 @@ const Loginpage = () => {
                 type="email"
                 id="email"
                 className="w-full px-4 py-4 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400"
-                placeholder="Enter your email address"
+                placeholder="Enter Your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -81,7 +72,8 @@ const Loginpage = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white  py-4 px-6 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed disabled={loading}"
+              className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={loading}
             >
               {loading ? (
                 <div className="flex items-center justify-center gap-2">
@@ -90,7 +82,7 @@ const Loginpage = () => {
                 </div>
               ) : (
                 <div className="flex items-center justify-center gap-2">
-                  <span> Send Verification Code </span>
+                  <span>Send Verification Code</span>
                   <ArrowRight className="w-5 h-5" />
                 </div>
               )}
@@ -102,4 +94,4 @@ const Loginpage = () => {
   );
 };
 
-export default Loginpage;
+export default LoginPage;
