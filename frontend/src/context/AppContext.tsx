@@ -1,10 +1,12 @@
 "use client";
-import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
-export const user_service = "http://localhost:5000";
-export const chat_service = "http://localhost:5002";
+
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
+
+export const user_service = "http://localhost:5003";
+export const chat_service = "http://localhost:5002";
 
 export interface User {
   _id: string;
@@ -51,9 +53,9 @@ interface AppProviderProps {
 }
 
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
-  const [user, setUser] = React.useState<User | null>(null);
-  const [isAuth, setIsAuth] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
+  const [user, setUser] = useState<User | null>(null);
+  const [isAuth, setIsAuth] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   async function fetchUser() {
     try {
@@ -64,19 +66,19 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setUser(data.user);
+      setUser(data);
       setIsAuth(true);
       setLoading(false);
     } catch (error) {
-      console.error("Failed to fetch user data:", error);
+      console.log(error);
       setLoading(false);
     }
   }
 
   async function logoutUser() {
     Cookies.remove("token");
-    setUser(null)
-    setIsAuth(false)
+    setUser(null);
+    setIsAuth(false);
     toast.success("User Logged Out");
   }
 
@@ -86,12 +88,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     try {
       const { data } = await axios.get(`${chat_service}/api/v1/chat/all`, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       setChats(data.chats);
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -100,14 +102,15 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
   async function fetchUsers() {
     const token = Cookies.get("token");
-    try{
+
+    try {
       const { data } = await axios.get(`${user_service}/api/v1/users/all`, {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
+        },
       });
       setUsers(data);
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -129,7 +132,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 export const useAppData = (): AppContextType => {
   const context = useContext(AppContext);
   if (!context) {
-    throw new Error("useAppData must be used within an AppProvider");
+    throw new Error("useAppdata must be used within AppProvider");
   }
   return context;
 };
