@@ -122,7 +122,21 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ user, setUser, isAuth, setIsAuth, loading, logoutUser, fetchChats, fetchUsers, chats, users, setChats }}>
+    <AppContext.Provider
+      value={{
+        user,
+        setUser,
+        isAuth,
+        setIsAuth,
+        loading,
+        logoutUser,
+        fetchChats,
+        fetchUsers,
+        chats,
+        users,
+        setChats,
+      }}
+    >
       {children}
       <Toaster />
     </AppContext.Provider>

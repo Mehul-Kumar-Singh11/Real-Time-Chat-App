@@ -9,14 +9,7 @@ import Loading from "./Loading";
 import toast from "react-hot-toast";
 
 const VerifyOTP = () => {
-  const {
-    isAuth,
-    setIsAuth,
-    setUser,
-    loading: userLoading,
-    fetchChats,
-    fetchUsers,
-  } = useAppData();
+  const { isAuth, setIsAuth, setUser, loading: userLoading, fetchChats, fetchUsers } = useAppData();
   const [loading, setLoading] = useState(false);
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const [error, setError] = useState<string>("");
@@ -50,10 +43,7 @@ const VerifyOTP = () => {
     }
   };
 
-  const handleKeyDown = (
-    index: number,
-    e: React.KeyboardEvent<HTMLElement>
-  ): void => {
+  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLElement>): void => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
@@ -137,12 +127,8 @@ const VerifyOTP = () => {
             <div className="mx-auto w-20 h-20 bg-blue-600 rounded-lg flex items-center justify-center mb-6">
               <Lock size={40} className="text-white" />
             </div>
-            <h1 className="text-4xl font-bold text-white mb-3">
-              Verify Your Email
-            </h1>
-            <p className="text-gray-300 text-lg">
-              We have sent a 6-digit code to
-            </p>
+            <h1 className="text-4xl font-bold text-white mb-3">Verify Your Email</h1>
+            <p className="text-gray-300 text-lg">We have sent a 6-digit code to</p>
             <p className="text-blue-400 font-medium">{email}</p>
           </div>
 
@@ -194,13 +180,9 @@ const VerifyOTP = () => {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-gray-400 text-sm mb-4">
-              Din't receive the code?
-            </p>
+            <p className="text-gray-400 text-sm mb-4">Did not receive the code?</p>
             {timer > 0 ? (
-              <p className="text-gray-400 text-sm">
-                Resend code in {timer} seconds
-              </p>
+              <p className="text-gray-400 text-sm">Resend code in {timer} seconds</p>
             ) : (
               <button
                 className="text-blue-400 hover:text-blue-300 font-medium text-sm disabled:opacity-50"

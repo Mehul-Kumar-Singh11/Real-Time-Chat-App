@@ -14,9 +14,7 @@ const LoginPage = () => {
 
   const { isAuth, loading: userLoading } = useAppData();
 
-  const handleSubmit = async (
-    e: React.FormEvent<HTMLElement>
-  ): Promise<void> => {
+  const handleSubmit = async (e: React.FormEvent<HTMLElement>): Promise<void> => {
     e.preventDefault();
     setLoading(true);
 
@@ -44,20 +42,13 @@ const LoginPage = () => {
             <div className="mx-auto w-20 h-20 bg-blue-600 rounded-lg flex items-center justify-center mb-6">
               <Mail size={40} className="text-white" />
             </div>
-            <h1 className="text-4xl font-bold text-white mb-3">
-              Welcome to ChatApp
-            </h1>
-            <p className="text-gray-300 text-lg">
-              Enter your email to continue
-            </p>
+            <h1 className="text-4xl font-bold text-white mb-3">Welcome to ChatApp</h1>
+            <p className="text-gray-300 text-lg">Enter your email to continue</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                 Email Address
               </label>
               <input

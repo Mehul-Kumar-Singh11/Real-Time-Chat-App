@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IChat extends Document {
   users: string[];
@@ -25,7 +25,7 @@ const chatSchema: Schema<IChat> = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export const Chat = mongoose.model<IChat>("Chat", chatSchema);
+export const Chat = mongoose.model<IChat>('Chat', chatSchema);
