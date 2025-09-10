@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Types } from "mongoose";
+import mongoose, { Document, Schema, Types } from 'mongoose';
 
 export interface IMessage extends Document {
   chatId: Types.ObjectId;
@@ -8,7 +8,7 @@ export interface IMessage extends Document {
     url: string;
     publicId: string;
   };
-  messageType: "text" | "image";
+  messageType: 'text' | 'image';
   seen: boolean;
   seenAt?: Date;
   createdAt?: Date;
@@ -19,7 +19,7 @@ const msgSchema = new Schema<IMessage>(
   {
     chatId: {
       type: Schema.Types.ObjectId,
-      reference: "Chat",
+      reference: 'Chat',
       required: true,
     },
     sender: {
@@ -33,8 +33,8 @@ const msgSchema = new Schema<IMessage>(
     },
     messageType: {
       type: String,
-      enum: ["text", "image"],
-      default: "text",
+      enum: ['text', 'image'],
+      default: 'text',
     },
     seen: {
       type: Boolean,
@@ -47,7 +47,7 @@ const msgSchema = new Schema<IMessage>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export const Messages = mongoose.model<IMessage>("Messages", msgSchema);
+export const Messages = mongoose.model<IMessage>('Messages', msgSchema);

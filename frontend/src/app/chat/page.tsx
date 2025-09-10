@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import ChatHeader from "@/components/ChatHeader";
 import ChatMessages from "@/components/ChatMessages";
-import ChatSidebar from "@/components/ChatSidebar";
+import ChatSidebar from "@/components/ChatSideBar";
 import MessageInput from "@/components/MessageInput";
 import { SocketData } from "@/context/SocketContext";
 
@@ -48,9 +48,7 @@ const ChatApp = () => {
   const [user, setUser] = useState<User | null>(null);
   const [showAllUser, setShowAllUser] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-  const [typingTimeOut, setTypingTimeOut] = useState<NodeJS.Timeout | null>(
-    null
-  );
+  const [typingTimeOut, setTypingTimeOut] = useState<NodeJS.Timeout | null>(null);
 
   const router = useRouter();
 
@@ -65,14 +63,11 @@ const ChatApp = () => {
   async function fetchChat() {
     const token = Cookies.get("token");
     try {
-      const { data } = await axios.get(
-        `${chat_service}/api/v1/message/${selectedUser}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axios.get(`${chat_service}/api/v1/message/${selectedUser}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setMessages(data.messages);
       setUser(data.user);
@@ -83,18 +78,12 @@ const ChatApp = () => {
     }
   }
 
-  const moveChatToTop = (
-    chatId: string,
-    newMessage: any,
-    updatedUnseenCount = true
-  ) => {
+  const moveChatToTop = (chatId: string, newMessage: any, updatedUnseenCount = true) => {
     setChats((prev) => {
       if (!prev) return null;
 
       const updatedChats = [...prev];
-      const chatIndex = updatedChats.findIndex(
-        (chat) => chat.chat._id === chatId
-      );
+      const chatIndex = updatedChats.findIndex((chat) => chat.chat._id === chatId);
 
       if (chatIndex !== -1) {
         const [moveChat] = updatedChats.splice(chatIndex, 1);
@@ -155,13 +144,13 @@ const ChatApp = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       setSelectedUser(data.chatId);
       setShowAllUser(false);
       await fetchChats();
-    } catch (error) {
+    } catch (_) {
       toast.error("Failed to start chat");
     }
   }
@@ -199,22 +188,16 @@ const ChatApp = () => {
         formData.append("image", imageFile);
       }
 
-      const { data } = await axios.post(
-        `${chat_service}/api/v1/message`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const { data } = await axios.post(`${chat_service}/api/v1/message`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       setMessages((prev) => {
         const currentMessages = prev || [];
-        const messageExists = currentMessages.some(
-          (msg) => msg._id === data.message._id
-        );
+        const messageExists = currentMessages.some((msg) => msg._id === data.message._id);
 
         if (!messageExists) {
           return [...currentMessages, data.message];
@@ -232,7 +215,7 @@ const ChatApp = () => {
           text: displayText,
           sender: data.sender,
         },
-        false
+        false,
       );
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -273,9 +256,7 @@ const ChatApp = () => {
       if (selectedUser === message.chatId) {
         setMessages((prev) => {
           const currentMessages = prev || [];
-          const messageExists = currentMessages.some(
-            (msg) => msg._id === message._id
-          );
+          const messageExists = currentMessages.some((msg) => msg._id === message._id);
 
           if (!messageExists) {
             return [...currentMessages, message];
@@ -390,11 +371,7 @@ const ChatApp = () => {
           onlineUsers={onlineUsers}
         />
 
-        <ChatMessages
-          selectedUser={selectedUser}
-          messages={messages}
-          loggedInUser={loggedInUser}
-        />
+        <ChatMessages selectedUser={selectedUser} messages={messages} loggedInUser={loggedInUser} />
 
         <MessageInput
           selectedUser={selectedUser}

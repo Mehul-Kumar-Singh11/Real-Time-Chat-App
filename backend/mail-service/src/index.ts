@@ -1,6 +1,6 @@
-import express from "express";
-import dotenv from "dotenv";
-import { startSendOtpConsumer } from "./consumer.js";
+import express from 'express';
+import dotenv from 'dotenv';
+import { startSendOtpConsumer } from './consumer.js';
 
 dotenv.config();
 

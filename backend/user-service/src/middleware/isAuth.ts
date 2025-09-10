@@ -9,7 +9,7 @@ export interface AuthenticatedRequest extends Request {
 export const isAuth = async (
   req: AuthenticatedRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const authHeader = req.headers.authorization;
@@ -23,10 +23,7 @@ export const isAuth = async (
 
     const token = authHeader.split(" ")[1];
 
-    const decodedValue = jwt.verify(
-      token,
-      process.env.JWT_SECRET as string
-    ) as JwtPayload;
+    const decodedValue = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;
 
     if (!decodedValue || !decodedValue.user) {
       res.status(401).json({

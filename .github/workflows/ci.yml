@@ -1,0 +1,59 @@
+name: build-and-lint
+
+# triggers: defines when this workflow should run i.e on push
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+# define a job
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo 
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with: 
+          node-version: 20
+      
+      # Backend: user-service
+      - name: Install deps (user-service)
+        working-directory: backend/user-service
+        run: npm ci
+
+      - name: Lint (user-service)
+        working-directory: backend/user-service
+        run: npm run lint
+
+      # Backend: mail-service
+      - name: Install deps (mail-service)
+        working-directory: backend/mail-service
+        run: npm ci
+
+      - name: Lint (mail-service)
+        working-directory: backend/mail-service
+        run: npm run lint
+
+      # Backend: chat-service
+      - name: Install deps (chat-service)
+        working-directory: backend/chat-service
+        run: npm ci
+
+      - name: Lint (chat-service)
+        working-directory: backend/chat-service
+        run: npm run lint
+
+      # Frontend
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Lint frontend
+        working-directory: frontend
+        run: npm run lint
+        

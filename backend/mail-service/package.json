@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"" 
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
+    "format": "prettier --write ."
   },
   "author": "Mehul Singh",
   "license": "ISC",
@@ -23,8 +26,12 @@
     "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.3",
     "@types/nodemailer": "^6.4.17",
+    "@typescript-eslint/eslint-plugin": "^8.43.0",
+    "@typescript-eslint/parser": "^8.43.0",
     "concurrently": "^9.2.0",
+    "eslint": "^9.35.0",
     "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
     "typescript": "^5.9.2"
   }
 }
