@@ -17,6 +17,9 @@ app.use('/api/v1', chatRoutes);
 
 const port = process.env.PORT;
 
+// testing CI pipleline
+const unusedVar = "JENKINS";
+
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
