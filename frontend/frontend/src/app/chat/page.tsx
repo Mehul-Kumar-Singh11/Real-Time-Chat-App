@@ -301,12 +301,14 @@ const ChatApp = () => {
     });
 
     socket?.on("userTyping", (data) => {
+      console.log("recieved user typing", data);
       if (data.chatId === selectedUser && data.userId !== loggedInUser?._id) {
         setIsTyping(true);
       }
     });
 
     socket?.on("userStoppedTyping", (data) => {
+      console.log("recieved user stopped typing", data);
       if (data.chatId === selectedUser && data.userId !== loggedInUser?._id) {
         setIsTyping(false);
       }

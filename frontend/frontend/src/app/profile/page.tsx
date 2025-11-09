@@ -25,7 +25,7 @@ const ProfilePage = () => {
     e.preventDefault();
     const token = Cookies.get("token");
     try {
-      const { data } = await axios.post(
+      const { data } = await axios.put(
         `${user_service}/api/v1/update/user`,
         { name },
         {

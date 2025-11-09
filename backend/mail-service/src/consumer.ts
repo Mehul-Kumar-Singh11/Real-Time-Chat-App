@@ -31,9 +31,10 @@ export const startSendOtpConsumer = async () => {
           const transporter = nodeMailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
+            secure: true, // required for SSL port
             auth: {
-              user: process.env.USER,
-              pass: process.env.PASSWORD,
+              user: process.env.MAIL_USER,
+              pass: process.env.MAIL_PASSWORD,
             },
           });
 
